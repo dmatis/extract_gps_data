@@ -11,9 +11,16 @@ def get_image_paths(directory)
   Dir["#{directory}/**/*.jpg"]
 end
 
-# Input: Array of image filepaths
+# Input: array of image filepaths
 def extract_exif_from_images(images)
   images.each { |image| extract_exif_from_image image }
+end
+
+# Input: image filename and coordinates
+def write_to_csv(filename, latitude, longitude)
+  CSV.open('output.csv', 'a+') do |csv|
+    csv << [filename, latitude, longitude]
+  end
 end
 
 # Input: absolute filename path to a .jpg image
@@ -22,13 +29,13 @@ def extract_exif_from_image(image)
   latitude = ''
   longitude = ''
   object = EXIFR::JPEG.new(image)
+
   unless object.gps.nil?
     latitude = object.gps.latitude
     longitude = object.gps.longitude
   end
-  CSV.open('output.csv', 'a+') do |csv|
-    csv << [filename, latitude, longitude]
-  end
+
+  write_to_csv(filename, latitude, longitude)
 end
 
 directory = Dir.pwd
