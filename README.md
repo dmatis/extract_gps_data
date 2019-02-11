@@ -3,7 +3,7 @@ Processes a directory of images to extract their coordinates and output to a CSV
 
 ## Setup
 Ensure that you have Ruby installed  
-Execute: `gem install bundler` (if you don't yet have bundler installed)
+Execute: `gem install bundler` (if you don't yet have bundler installed)  
 Execute: `bundle install` to retrieve the supporting gem library
 
 ## To run
